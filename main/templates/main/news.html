@@ -1,0 +1,65 @@
+{% include "includes/header.html" %}
+  <body onload="calldonate()">
+	{% include "includes/navbar.html" %}
+	{% load static %}
+  	<!-- BODY -->
+    <div class="jumbotron jumbotron-fluid" style="background: url({% static 'images/teamdoc.jpg' %}) no-repeat fixed bottom center/cover;">
+    	<div class="container text-center" style="background-color: rgba(255,255,255,0.5)">
+    		<h1 class="hero-text display-1" style="text-shadow: 2px 2px 4px rgba(250, 7, 97,0.6);">LATEST NEWS</h1>
+    	</div>
+    </div>
+    <!-- NEWS SECTION -->
+	<section>
+		<div class="container text-center">
+			<h4>LATEST COVID-19 NEWS</h4>
+			<h1 class="hero-text">STAY UPDATED</h1>
+			<div class="row" id="news_posts">
+				<div class="container-fluid" id="loading">
+					<img class="img-fluid" src="{% static loading.gif %}">
+				</div>
+			</div>
+			<br>
+			<br>
+		</div>
+	</section>
+
+	{% include "includes/footer.html" %}
+
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		var url = 'https://newsapi.org/v2/top-headlines?' +
+	          'country=in&' +
+	          'q=covid-19&' +
+	          'apiKey=8b24a3b6917a469cb37cbfffb1a10e1f';
+		fetch(url)
+		  .then(function(response) {
+		    return response.json();
+		  })
+		  .then(function(myJson) {
+		    myJson.articles.forEach(myprinter);
+		    function myprinter(item){
+				var news_posts = document.getElementById('news_posts');
+				var loading = document.getElementById('loading');
+		    	var author;
+		    	if(item.author == null){
+		    		author = "Anonymous";
+		    	}else{
+		    		author = item.author;
+				}
+				loading.style.display="none";
+		    	news_posts.innerHTML += "<div class='col-md-4 col-sm-12 col-lg-4'><div class='container hvr-grow card p-2'><img class='img-fluid card-img-top' style='max-height:221px; min-height:221px;' src='"+item.urlToImage+"' alt="+item.title+"><h5 class='card-header'>"+item.title+"</h5><br><span>Author: "+author+"</span><br><small>Posted On: "+item.publishedAt+"</small><div class='card-body p-1'><article class='card-text'>"+item.description+"</article></div><div class='card-footer p-2'><small class='text-muted'>Source: "+item.source.name+"</small><br><small class='text-muted'><a href="+item.url+" title="+item.title+">Read More <i class='fas fa-arrow-right'></a></small></div></div></div>"
+		    }
+		  });
+	</script>
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	<script src="{% static 'zenscroll-min.js' %}"></script>
+  </body>
+</html>
