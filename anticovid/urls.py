@@ -21,4 +21,7 @@ urlpatterns = [
     path('', include('main.urls'), name="homepage"),
     path('main/', include('main.urls'), name="homepage"),
     path('main/home', include('main.urls'), name="homepage"),
+    path('main/news', include('main.urls'), name="news"),
+    path('main/facts', include('main.urls'), name="facts"),
+    path('social/', include('social.urls'), name="social"),
 ]

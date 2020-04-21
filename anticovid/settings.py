@@ -26,12 +26,11 @@ SECRET_KEY = 'z!3e0kjefe4&$6f6hj)&=664^por1ex6o-b7g^d+39klwh++a1'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
 # Application definition
 
 INSTALLED_APPS = [
     'main.apps.MainConfig',
+    'social.apps.SocialConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

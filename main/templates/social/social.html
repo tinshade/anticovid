@@ -1,0 +1,43 @@
+{% load static %}
+{% include 'includes/header.html' %}
+{% include 'includes/navbar.html' %}
+{% block content %}
+<!-- BODY SECTION -->
+<div class="jumbotron jumbotron-fluid" style="height: 100vh; background: url({% static 'images/socialmedia.svg' %}) no-repeat;">
+    <div class="container text-center">
+        <h1 class="hero-text display-1 pt-5 mt-5">SEE WHAT'S TRENDING</h1>
+        <br>
+        <a href="#tweets" title="Explore more!" class="btn btn-danger"><i class="fas fa-2x fa-arrow-down"></i></a>
+    </div>
+</div>
+<!-- TWEETS SECTION -->
+<section id="tweets">
+    <div class="container text-center">
+        <div class="row">
+            {%for each in tweets.t%}
+            <div class="col-sm-12 mb-4 col-md-4 col-lg-4">
+                <div class="card hvr-grow">
+                    <h5 class="card-header" style="border:none">{{each.user.name}}</h5>
+                    <small class="text-primary">@{{each.user.screen_name}}</small>
+                    <br>
+                    <hr style="margin: 0 auto;">
+                    <br>
+                    <div class="card-body">
+                        <strong class="float-left">Says:</strong>
+                        <article class="card-text">{{each.text}}</article>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+</section>
+{% endblock%}
+
+<!-- FOOTER SCRIPTS -->
+<script src="{%static 'zenscroll-min.js' %}"></script>
+
+{% include 'includes/footer.html' %}
+
+</body>
+</html>
