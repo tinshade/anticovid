@@ -17,6 +17,7 @@
             {%for each in tweets.t%}
             <div class="col-sm-12 mb-4 col-md-4 col-lg-4">
                 <div class="card hvr-grow">
+                    <img class="card-img-top img-fluid rounded-cricle" src="{{each.user.profile_image_url_https}}" alt="{{each.user.profile_image_url}}">
                     <h5 class="card-header" style="border:none">{{each.user.name}}</h5>
                     <small class="text-primary">@{{each.user.screen_name}}</small>
                     <br>
