@@ -278,6 +278,7 @@
 	    </svg>
 	  </div>
 	  <div class="col-md-6 col-lg-6 col-sm-12 text-center">
+		  <h3 class="text-danger" style="text-transform: capitalize;" id="snamem"><i class="fas fa-arrow-left mr-4"></i>HOVER OVER A STATE</h3>
 	    <div class="row">
 	      <div class="col-sm-12 col-md-4 col-lg-4">
 	        <div class="card mt-3 mb-3" style="box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);">
@@ -298,11 +299,12 @@
 	        </div>
 	      </div>
 	    </div>
-	    <div class="container-fluid">
-	      <div class="container">
-	        <input class="inpdes" style="width: 80%; outline: none;margin-right: 5px;margin-left: 5px;" placeholder="Enter State Code. Example: KA for Karnataka" id="scoderes" ><button class="btn" onclick="getind()" style="background-color: #f71a56"><i class="fas fa-search text-white"></i></button>
+	    <div class="container-fluid mt-5 mb-5">
+	      <div class="container autocomplete">
+			<input id="scoderes" class="inpdes" style="width: 100%; outline: none; margin-right: 5px; margin-left: 5px;" type="text" placeholder="Example-  MH for Maharashtra">
+			<button class="btn" onclick="getind()"><i class="fas fa-search"></i></button>
 	      </div>
-	      <div class="container-fluid hvr-grow text-left" id="detailstab" style="display: block">
+	      <div class="container-fluid hvr-grow text-left" id="detailstab" style="display: none">
 	        <div class="container" style="box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.45); border-radius: 4%">
 	          <p>Showing count in: <strong id="sname">LOADING....</strong></p>
 	          <small class="text-muted">State Code: <strong id="scode" class="text-muted">loading...</strong></small>
@@ -857,16 +859,17 @@
 	  });
 	  function getdetails(obj){
 	    var name = obj.id
+		document.getElementById('snamem').innerHTML = name
 	    var activenow = document.getElementById('activehere')
 	    var renow = document.getElementById('rehere')
 	    var deadnow = document.getElementById('deadhere')
-
 	    activenow.innerHTML = displayData[name].active
 	    renow.innerHTML = displayData[name].dead
 	    deadnow.innerHTML = displayData[name].recovered
 	  }
 
 	  function getind(){
+		
 	    document.getElementById('detailstab').style.display = "block";    
 	    var code = document.getElementById('scoderes').value.toUpperCase();
 	    document.getElementById('scode').innerHTML = code;
@@ -881,6 +884,77 @@
 	    sdeaths.innerHTML = displayInd[code].deaths
 	    sconfirmed.innerHTML = displayInd[code].confirmed
 	  }
+	</script>
+
+	<!-- AUTOCOMPLETE SEARCH BOX SCRIPT -->
+	<script>
+		function autocomplete(inp, arr) {
+		var currentFocus;
+		inp.addEventListener("input", function(e) {
+			var a, b, i, val = this.value;
+			closeAllLists();
+			if (!val) { return false;}
+			currentFocus = -1;
+			a = document.createElement("DIV");
+			a.setAttribute("id", this.id + "autocomplete-list");
+			a.setAttribute("class", "autocomplete-items");
+			this.parentNode.appendChild(a);
+			for (i = 0; i < arr.length; i++) {
+				if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+				b = document.createElement("DIV");
+				b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+				b.innerHTML += arr[i].substr(val.length);
+				b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+				b.addEventListener("click", function(e) {
+					inp.value = this.getElementsByTagName("input")[0].value;
+					closeAllLists();
+				});
+				a.appendChild(b);
+				}
+			}
+		});
+		inp.addEventListener("keydown", function(e) {
+			var x = document.getElementById(this.id + "autocomplete-list");
+			if (x) x = x.getElementsByTagName("div");
+			if (e.keyCode == 40) {
+				currentFocus++;
+				addActive(x);
+			} else if (e.keyCode == 38) {
+				currentFocus--;
+				addActive(x);
+			} else if (e.keyCode == 13) {
+				e.preventDefault();
+				if (currentFocus > -1) {
+				if (x) x[currentFocus].click();
+				}
+			}
+		});
+		function addActive(x) {
+			if (!x) return false;
+			removeActive(x);
+			if (currentFocus >= x.length) currentFocus = 0;
+			if (currentFocus < 0) currentFocus = (x.length - 1);
+			x[currentFocus].classList.add("autocomplete-active");
+		}
+		function removeActive(x) {
+			for (var i = 0; i < x.length; i++) {
+			x[i].classList.remove("autocomplete-active");
+			}
+		}
+		function closeAllLists(elmnt) {
+			var x = document.getElementsByClassName("autocomplete-items");
+			for (var i = 0; i < x.length; i++) {
+			if (elmnt != x[i] && elmnt != inp) {
+				x[i].parentNode.removeChild(x[i]);
+			}
+			}
+		}
+		document.addEventListener("click", function (e) {
+			closeAllLists(e.target);
+		});
+		}
+		var statecodes = ["MH","DL","GJ","RJ","TN","MP","UP","TG","AP","KA","KL","JK","WB","HR","PB","BR","OR","UT","JH","HP","CT","AS","CH","LA","AN","ML","GA","PY","MN","TR","MZ","AR","NL"];
+		autocomplete(document.getElementById("scoderes"), statecodes);
 	</script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
