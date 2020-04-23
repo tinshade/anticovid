@@ -808,23 +808,21 @@
 	</script>
 	<!-- COVID-19 STATS SCRIPT -->
 	<script type="text/javascript">
-		var url = 'https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=India'
 		var settings = {
 			"async": true,
 			"crossDomain": true,
-			"url": `${url}`,
+			"url": "https://covid-19-india-data-by-zt.p.rapidapi.com/GetIndiaTotalCounts",
 			"method": "GET",
 			"headers": {
-				"x-rapidapi-host": "covid-19-coronavirus-statistics.p.rapidapi.com",
+				"x-rapidapi-host": "covid-19-india-data-by-zt.p.rapidapi.com",
 				"x-rapidapi-key": "b827ab8680mshbd7949fbb60d632p1ff3cfjsn6f4462105676"
 			}
 		}
-
 		$.ajax(settings).done(function (response) {
-			document.getElementById('confirmed').innerHTML = response.data.covid19Stats[0].confirmed;
-			document.getElementById('deaths').innerHTML = response.data.covid19Stats[0].deaths;
-			document.getElementById('recovered').innerHTML = response.data.covid19Stats[0].recovered;
-			document.getElementById('lastUpdate').innerHTML = response.data.covid19Stats[0].lastUpdate;
+			document.getElementById('confirmed').innerHTML = response.data[0].confirmed;
+			document.getElementById('deaths').innerHTML = response.data[0].deaths;
+			document.getElementById('recovered').innerHTML = response.data[0].recovered;
+			document.getElementById('lastUpdate').innerHTML = response.data[0].lastupdatedtime;
 		});
 	</script>
 	<!-- MAPS SCRIPT -->
