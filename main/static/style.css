@@ -183,3 +183,22 @@ a:hover, a:focus, a:active { outline: 0; }
   z-index: 999999;
   background: rgba(0,0,0,0.9) url('loading.gif') no-repeat center center;
 }
+
+svg {
+  width:  auto;
+  height: auto;
+}
+svg>path{
+  transition: all 0.5s ease 0.11s;
+  fill: rgba(247, 26, 86,0.89);
+}
+svg>path:hover{
+  transform: translateY(-1.5px);
+  fill: #333;
+}
+.container{
+  transition: all 0.9s ease 0.15s;
+}
+strong{
+  color: #f71a56;
+}
