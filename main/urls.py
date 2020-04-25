@@ -4,5 +4,5 @@ urlpatterns = [
     path('', views.home),
     path('home', views.home, name="homepage"),
     path('facts', views.facts, name="facts"),
-    path('news', views.home, name="news"),
+    path('news', views.news, name="news"),
 ]

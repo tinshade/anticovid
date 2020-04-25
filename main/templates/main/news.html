@@ -47,8 +47,15 @@
 		    	}else{
 		    		author = item.author;
 				}
+				if(item.urlToImage == null){
+					post_url = '{% static 'post_url.svg' %}'
+					post_title = "No image available"
+				}else{
+					post_url = item.urlToImage
+					post_title = item.title
+				}
 				loading.style.display="none";
-		    	news_posts.innerHTML += "<div class='col-md-4 col-sm-12 col-lg-4'><div class='container hvr-grow card p-2'><img class='img-fluid card-img-top' style='max-height:221px; min-height:221px;' src='"+item.urlToImage+"' alt="+item.title+"><h5 class='card-header'>"+item.title+"</h5><br><span>Author: "+author+"</span><br><small>Posted On: "+item.publishedAt+"</small><div class='card-body p-1'><article class='card-text'>"+item.description+"</article></div><div class='card-footer p-2'><small class='text-muted'>Source: "+item.source.name+"</small><br><small class='text-muted'><a href="+item.url+" title="+item.title+">Read More <i class='fas fa-arrow-right'></a></small></div></div></div>"
+		    	news_posts.innerHTML += "<div class='col-md-4 col-sm-12 col-lg-4'><div class='container hvr-grow card p-2'><img class='img-fluid card-img-top' style='max-height:221px; min-height:221px;' src='"+post_url+"' alt="+post_title+"><h5 class='card-header'>"+item.title+"</h5><br><span>Author: "+author+"</span><br><small>Posted On: "+item.publishedAt+"</small><div class='card-body p-1'><article class='card-text'>"+item.description+"</article></div><div class='card-footer p-2'><small class='text-muted'>Source: "+item.source.name+"</small><br><small class='text-muted'><a href="+item.url+" title="+item.title+">Read More <i class='fas fa-arrow-right'></a></small></div></div></div>"
 		    }
 		  });
 	</script>
