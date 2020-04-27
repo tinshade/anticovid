@@ -1,0 +1,93 @@
+{% load static %}
+{% include 'includes/header.html' %}
+<body>
+{% include 'includes/navbar.html' %}
+{% block content %}
+<!-- RESOURCES SECTION -->
+<section id="resources">
+  <!-- BODY -->
+  <div class="jumbotron jumbotron-fluid" style="background: url({% static 'images/resources.jpg' %}) no-repeat fixed bottom center/cover;">
+    <div class="container text-center" style="background-color: rgba(255,255,255,0.5)">
+      <h1 class="hero-text" style="text-shadow: 2px 2px 4px rgba(250, 7, 97,0.6);">FIND ESSENTIALS</h1>
+    </div>
+  </div>
+  <div class="container bg-white text-center mt-4 mb-4 p-5 rounded" style="display: none; box-shadow: 0px 10px 15px rgba(0,0,0,0.3);" id="dd">
+    <i class="fas fa-info-circle fa-5x hvr-pulse text-danger"></i>
+    <article class="text-danger" style="font-size:1.2rem;">This platform is fully reliant on croud-sourced data. We are not associated with any of the mentioned organisations is any way.
+    <br> 
+    On this note, the data below might be inaccurate and we urge you to have an open mind.
+    </article>
+  </div>
+  <script src="{% static 'cities.js' %}"></script>
+  <div class="container-fluid mt-5">
+  <!-- FLOAT BUTTON -->
+  <a class="float-right" onclick="disclaimer()" title="VIEW DISCLAIMER"><i class="text-danger fas hvr-pulse fa-info-circle"></i></a>
+
+    <div class="row">
+      <div class="col-md-4 col-lg-4 col-sm-12">
+        <select onchange="print_city('state', this.selectedIndex);" id="sts" name ="stt" class="form-control inpdes" required></select>
+        <br>
+      </div>
+      <div class="col-md-4 col-lg-4 col-sm-12">
+        <select id ="state" class="form-control inpdes" required></select>
+        <script language="javascript">print_state("sts");</script>
+        <br>
+      </div>
+      <div class="col-md-4 col-lg-4 col-sm-12">
+        <select id="service" class="form-control inpdes">
+          <option value="">ALL CATEGORIES</option>
+          <option value="Accommodation and Shelter Homes">ACCOMMODATION AND SHELTER HOMES</option>
+          <option value="Ambulance">AMBULANCE</option>
+          <option value="CoVID-19 Testing Lab">COVID-19 TESTING LAB</option>
+          <option value="Community Kitchen">COMMUNITY KITCHEN</option>
+          ETC.)</option>
+          <option value="Fire Brigade">FIRE BRIGADE</option>
+          <option value="Free Food">FREE FOOD</option>
+          <option value="Fundraisers">FUNDRAISERS</option>
+          <option value="Government Helpline">GOVERNMENT HELPLINE</option>
+          <option value="Hospitals and Centers">HOSPITALS AND CENTERS</option>
+          <option value="Mental well being and Emotional support">MENTAL WELL BEING AND EMOTIONAL SUPPORT</option>
+          <option value="Other">OTHER</option>
+          <option value="Police">POLICE</option>
+          <option value="Quarantine Facility">QUARANTINE FACILITY</option>
+          <option value="Senior Citizen Support">SENIOR CITIZEN SUPPORT</option>
+          <option value="Transportation">TRANSPORTATION</option>
+        </select>
+        <br>
+      </div>
+    </div>
+      <div class="text-center">
+        <button class="btn btn-primary" id="searchbtn" onclick="getme()">SEARCH</button>
+      </div>      
+      <div class="container-fluid" style="margin-top: 10%; margin-bottom: 25%;">
+        <div class="container text-center" id="wait" style="display: none">
+          <img src="{% static 'statgif.gif' %}">
+          <h1 class="secondary-text" style="text-transform: uppercase;">Please wait while we fetch your results..</h1>
+        </div>
+        <div class="container text-center" id="notfoundre" style="display: none">
+          <i class="fas fa-frown fa-5x text-danger mb-5"></i>
+          <h1 class="secondary-text" style="text-transform: uppercase;">NO RESOURCES FOUND!</h1>
+        </div>
+        <table class="table" id="tabmain" style="display: none">
+          <thead>
+            <tr>
+              <th scope="col">City</th>
+              <th scope="col">Category</th>
+              <th scope="col" class="org">Organisation</th>
+              <th scope="col" class="des">Description</th>
+              <th scope="col">Phone</th>
+            </tr> 
+          </thead>
+          <tbody id="tabres">
+          </tbody>
+        </table>
+      </div>
+      
+  </div>
+  <!-- FOOTER SCRIPTS -->
+  <script type="text/javascript" src="{% static 'knowledge.js' %}"></script>
+</section>
+{% endblock %}
+{% include 'includes/footer.html' %}
+</body>
+</html>
