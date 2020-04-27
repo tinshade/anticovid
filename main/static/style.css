@@ -238,3 +238,16 @@ strong{
   background-color: DodgerBlue !important; 
   color: #ffffff; 
 }
+
+th{
+  color: #ff2161;
+}
+@media (max-width: 530px){
+  .des{
+    display: none;
+  }
+  .org{
+    display: none;
+  }
+
+}
