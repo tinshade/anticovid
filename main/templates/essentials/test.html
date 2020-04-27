@@ -1,0 +1,58 @@
+{%load static%}
+{% include 'includes/header.html' %}
+{% include 'includes/navbar.html' %}
+
+<!-- SEARCH ESSENTIALS SECTION -->
+<section id="essentials">
+{% block content %}
+
+<div class="container mt- mb-5 p-2">
+  <input id="statename" placeholder="statename" value="Maharashtra">
+  <input id="cityname" placeholder="ctiyname" value="Aurangabad">
+  <input id="catname" placeholder="catname" value="Free Food">
+  <button class="btn" onclick="getthings()">SEARCH</button>
+</div>
+{% endblock %}
+<div class="container mt-5 pt-5">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">City</th>
+          <th scope="col">Category</th>
+          <th scope="col">Organisation</th>
+          <th scope="col">Description</th>
+          <th scope="col">Phone</th>
+        </tr>
+      </thead>
+      <tbody id="tabres">
+      </tbody>
+    </table>
+</div>
+</section>
+
+<!-- FOOTER SCRIPTS -->
+<script type="text/javascript">
+	function getthings(){
+    var statename = document.getElementById('statename').value
+    var cityname = document.getElementById('cityname').value
+    var catname = document.getElementById('catname').value
+    if(catname == null){
+      catname = "ALL"
+    }
+    console.log(statename)
+		$.ajax({
+		    url: 'search_data',
+		    type: 'POST',
+        data: {'statename':statename,'cityname':cityname, 'catname':catname},
+        headers: {'X-CSRFToken': '{{ csrf_token }}'},
+		    success: function(result){
+		      $.each(result, (k,v)=>{
+            console.log(k, v)
+          })
+		    }
+	 	});
+    }
+</script>
+<!-- tabres.innerHTML +=`<tr><td>1</td><td>${element.city}</td><td>${element.category}</td><td>${element.nameoftheorganisation}</td><td>${element.descriptionandorserviceprovided}</td><td>${element.phonenumber}</td></tr>` -->
+{% include 'includes/footer.html' %}

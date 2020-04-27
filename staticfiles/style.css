@@ -1,0 +1,253 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400,700&display=swap');
+
+*{
+	margin:0px;
+	padding: 0px;
+}
+html, body {font-family: "Roboto", sans-serif; color: #50658e; font-size: 16px; line-height: 1.6; font-weight: 300; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; position: relative; }
+
+body.noscroll { overflow: hidden; }
+body{
+	background-color: #fff0f4;
+}
+.nav-link{
+	color:#ff4d7d !important;
+	font-weight: 700 !important;
+	font-size:0.8rem;
+}
+.active{
+	color: #f71a56 !important;
+}
+.container{
+	padding-top: 2%;
+	padding-bottom: 2%;
+	margin-top:2%;
+	margin-bottom:2%;
+}
+
+.inpdes{
+  text-decoration: none;
+  color: #f71a56;
+  border: none;
+  background-color: transparent;
+  border-bottom: 2px solid #f71a56;
+  border-radius: 5px;
+  padding-left: 20px;
+  padding: 10px; 
+  height: 45px;
+  font-weight: 600;
+}
+
+.btn {
+    letter-spacing: 2.5px;
+    color: #f81451;
+    background-color: #ffd4df;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    margin-top: 2%;
+}
+
+.btn:hover {
+    background-color: #f71a56;
+    box-shadow: 0px 5px 10px rgba(68, 174, 255, 0.6); 
+    color: #fff;
+    margin-top: 2%;
+    transform: translateY(-7px);
+}
+
+.alter-btn {
+    color: #f71a56;
+    background-color: transparent;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    margin-top: 2%;
+}
+
+.alter-btn:hover {
+    background-color: #f71a56;
+    box-shadow: 0px 5px 10px rgba(68, 174, 255, 0.6); 
+    color: #fff;
+    transform: translateY(-7px);
+    margin-top: 2%;
+}
+.donate-btn {
+    color: #238c1d;
+    background-color: transparent;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    margin-top: 2%;
+}
+
+.donate-btn:hover {
+    background-color: #238c1d;
+    box-shadow: 0px 5px 10px rgba(68, 174, 255, 0.6); 
+    color: #fff;
+    transform: translateY(-7px);
+    margin-top: 2%;
+}
+.hero-text{
+	font-weight: 900;
+	font-size: 2.7rem;
+	color: #f71a56;
+  padding: 2%;
+  text-shadow: 2px 4px 10px rgba(252, 144, 175,0.7);
+}
+
+hr{
+	width: 25%;
+	background-color: red;
+	margin: 0 auto;
+}
+
+a { outline: 0 none; transition: all 0.5s; }
+a:link, a:visited { text-decoration: none; }
+a:hover, a:focus, a:active { outline: 0; }
+
+.card-header{
+	background-color: transparent !important;
+	border-bottom: solid 1px 25%;
+	color: #ff2161;
+
+}
+.card-footer{
+	background-color: transparent !important;
+}
+.card{
+	box-shadow: 2px 5px 17px rgba(252, 144, 175,0.7);
+	min-height: 98%;
+	max-height: 98%; 
+	overflow: hidden;
+	margin-bottom: 15%;
+}
+
+
+/** 05.10 WGS */
+.wgs-title { font-size: 0.875rem; letter-spacing: 0.075em; text-transform: uppercase; margin-bottom: 0.875rem; color: #50658e; }
+.tc-light .wgs-title { color: #fff; }
+.wgs-links li:not(:last-child) { margin-bottom: 0.5rem; }
+.wgs-links li a { font-size: 0.875rem; line-height: 1.25rem; color: #50658e; }
+.wgs-links li a:hover { color: #2a81ea; }
+.tc-light .wgs-links li a { color: #b2bfe0; }
+.tc-light .wgs-links li a:hover { color: #2a81ea; }
+.wgs-about-text:not(:first-child) { padding-top: 1.125rem; }
+.wgs-about-text:not(:last-child) { padding-bottom: 0.675rem; }
+.wgs-about p { font-size: 12px; line-height: 1.67; margin-bottom: 0.5rem; color: #50658e; }
+.tc-light .wgs-about p { color: #b2bfe0; }
+.wgs-social { display: flex; align-items: center; margin: -5px; }
+.wgs-social li { padding: 5px; }
+.wgs-social li a { display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; height: 30px; width: 30px; background: #50658e; color: #fff; }
+.wgs-social li a:hover { background: #2a81ea; }
+.wgs-card { border: 1px solid #e7e8ff; border-radius: 4px; background: #fff; box-shadow: 0px 5px 40px 0px rgba(80, 101, 142, 0.08); }
+.wgs-head { border-bottom: 1px solid #e7e8ff; padding: 1.25rem 1.25rem; }
+.wgs-head h4, .wgs-head h5, .wgs-head h6 { margin-bottom: 0; }
+.wgs-list li:not(:last-child) { border-bottom: 1px solid #e7e8ff; }
+.wgs-list li a { display: flex; font-size: 1rem; line-height: 1.5rem; padding: 1.125rem 1.25rem; color: #2a81ea; }
+.wgs-list li a:after { margin-left: auto; font-family: "Nioicon"; content: "→"; }
+
+@media (min-width: 576px) { .wgs-head { padding: 1.25rem 1.875rem; }
+  .wgs-list li a { padding: 1.125rem 1.875rem; } }
+@media (min-width: 992px) and (max-width: 1199px) { .wgs-head { padding: 1.25rem 1.5rem; }
+  .wgs-list li a { padding: 1.125rem 1.5rem; } }
+@media (min-width: 767px) { .wgs-head { padding: 1.25rem 1.5rem; }
+  .wgs-list li a { padding: 1.125rem 1.5rem; } }
+
+
+ strong{
+ 	font-weight: 900;
+ }
+
+.list-check { margin-top: -0.5em; margin-bottom: -0.5em; }
+.list-check li { position: relative; padding: .5rem 0 .5rem 1.875rem; font-size: 1rem; line-height: 1.5; }
+.list-check li:before { position: absolute; top: .375rem; left: 0; font-family: "Nioicon"; content: "֍"; font-size: 1.25rem; line-height: 1.5rem; color: #3dca93; }
+.list-check li a { color: #2a81ea; box-shadow: 0 1px 0 0 #2a81ea; }
+
+.carousel-control-next,
+.carousel-control-prev {
+    filter: invert(100%);
+}
+
+#loader{
+  position:fixed;
+  width: 100%;
+  height: 100vh;
+  z-index: 999999;
+  background: rgba(0,0,0,0.9) url('loading.gif') no-repeat center center;
+}
+
+svg {
+  width:  auto;
+  height: auto;
+}
+svg>path{
+  transition: all 0.5s ease 0.11s;
+  fill: rgba(247, 26, 86,0.89);
+}
+svg>path:hover{
+  transform: translateY(-1.5px);
+  fill: #333;
+}
+.container{
+  transition: all 0.9s ease 0.15s;
+}
+strong{
+  color: #f71a56;
+}
+
+/* AUTOCOMPLETE BOX */
+.autocomplete {
+  position: relative;
+  display: inline-block;
+}
+
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff; 
+  border-bottom: 1px solid #d4d4d4; 
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+  background-color: #e9e9e9; 
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+  background-color: DodgerBlue !important; 
+  color: #ffffff; 
+}
+
+th{
+  color: #ff2161;
+}
+@media (max-width: 530px){
+  .des{
+    display: none;
+  }
+  .org{
+    display: none;
+  }
+
+}
