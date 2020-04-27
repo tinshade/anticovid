@@ -33,7 +33,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'main.apps.MainConfig',
     'social.apps.SocialConfig',
-    'essentails.apps.EssentialsConfig',
+    'essentials.apps.EssentialsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
