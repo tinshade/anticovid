@@ -25,12 +25,15 @@ SECRET_KEY = 'z!3e0kjefe4&$6f6hj)&=664^por1ex6o-b7g^d+39klwh++a1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+DEBUG_PROPAGATE_EXCEPTIONS = True
+
+ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
     'main.apps.MainConfig',
     'social.apps.SocialConfig',
+    'essentails.apps.EssentialsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
