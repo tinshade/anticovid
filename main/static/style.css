@@ -242,6 +242,8 @@ strong{
 th{
   color: #ff2161;
 }
+
+
 @media (max-width: 530px){
   .des{
     display: none;
