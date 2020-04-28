@@ -1,6 +1,6 @@
 {% load static %}
 {% include 'includes/header.html' %}
-<body>
+<body onload="getstates()">
 {% include 'includes/navbar.html' %}
 {% block content %}
 <!-- RESOURCES SECTION -->
@@ -18,71 +18,50 @@
     On this note, the data below might be inaccurate and we urge you to have an open mind.
     </article>
   </div>
-  <script src="{% static 'cities.js' %}"></script>
-  <div class="container-fluid mt-5">
+  <div class="container-fluid mt-5 mb-5">
   <!-- FLOAT BUTTON -->
   <a class="float-right" onclick="disclaimer()" title="VIEW DISCLAIMER"><i class="text-danger fas hvr-pulse fa-info-circle"></i></a>
 
-    <div class="row">
-      <div class="col-md-4 col-lg-4 col-sm-12">
-        <select onchange="print_city('state', this.selectedIndex);" id="sts" name ="stt" class="form-control inpdes" required></select>
-        <br>
-      </div>
-      <div class="col-md-4 col-lg-4 col-sm-12">
-        <select id ="state" class="form-control inpdes" required></select>
-        <script language="javascript">print_state("sts");</script>
-        <br>
-      </div>
-      <div class="col-md-4 col-lg-4 col-sm-12">
-        <select id="service" class="form-control inpdes">
-          <option value="">ALL CATEGORIES</option>
-          <option value="Accommodation and Shelter Homes">ACCOMMODATION AND SHELTER HOMES</option>
-          <option value="Ambulance">AMBULANCE</option>
-          <option value="CoVID-19 Testing Lab">COVID-19 TESTING LAB</option>
-          <option value="Community Kitchen">COMMUNITY KITCHEN</option>
-          ETC.)</option>
-          <option value="Fire Brigade">FIRE BRIGADE</option>
-          <option value="Free Food">FREE FOOD</option>
-          <option value="Fundraisers">FUNDRAISERS</option>
-          <option value="Government Helpline">GOVERNMENT HELPLINE</option>
-          <option value="Hospitals and Centers">HOSPITALS AND CENTERS</option>
-          <option value="Mental well being and Emotional support">MENTAL WELL BEING AND EMOTIONAL SUPPORT</option>
-          <option value="Other">OTHER</option>
-          <option value="Police">POLICE</option>
-          <option value="Quarantine Facility">QUARANTINE FACILITY</option>
-          <option value="Senior Citizen Support">SENIOR CITIZEN SUPPORT</option>
-          <option value="Transportation">TRANSPORTATION</option>
-        </select>
-        <br>
-      </div>
-    </div>
-      <div class="text-center">
-        <button class="btn btn-primary" id="searchbtn" onclick="getme()">SEARCH</button>
+      <div class="row">
+        <div class="col-md-4 col-lg-4 col-sm-12">
+          <label for="statenames">States</label>
+          <select class="form-control" id="statenames" onchange="getcica()">
+            <option value=""></option>
+          </select>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-12">
+          <label for="citynames">Cities</label>
+          <select class="form-control" onchange="getser()" id="citynames">
+          </select>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-12">
+          <label for="categories">Services</label>
+          <select class="form-control" id="categories">
+          </select>
+        </div>
       </div>      
-      <div class="container-fluid" style="margin-top: 10%; margin-bottom: 25%;">
+      <div class="text-center">
+        <button class="btn btn-primary" id="searchbtn" onclick="getall()">SEARCH</button>
+      </div>      
+      <div class="container-fluid" style="margin-top: 5%; margin-bottom: 5%;">
         <div class="container text-center" id="wait" style="display: none">
           <img src="{% static 'statgif.gif' %}">
           <h1 class="secondary-text" style="text-transform: uppercase;">Please wait while we fetch your results..</h1>
         </div>
-        <div class="container text-center" id="notfoundre" style="display: none">
-          <i class="fas fa-frown fa-5x text-danger mb-5"></i>
-          <h1 class="secondary-text" style="text-transform: uppercase;">NO RESOURCES FOUND!</h1>
-        </div>
-        <table class="table" id="tabmain" style="display: none">
+        <table class="table" id="tabmain" style="display: none;">
           <thead>
             <tr>
               <th scope="col">City</th>
               <th scope="col">Category</th>
-              <th scope="col" class="org">Organisation</th>
-              <th scope="col" class="des">Description</th>
+              <th scope="col">Organisation</th>
+              <th scope="col">Description</th>
               <th scope="col">Phone</th>
-            </tr> 
+            </tr>
           </thead>
           <tbody id="tabres">
           </tbody>
         </table>
       </div>
-      
   </div>
   <!-- FOOTER SCRIPTS -->
   <script type="text/javascript" src="{% static 'knowledge.js' %}"></script>
