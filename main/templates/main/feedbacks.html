@@ -1,0 +1,30 @@
+{% load static %}
+{% include 'includes/header.html' %}
+<body>
+{% include 'includes/navbar.html' %}
+{% block content %}
+<!-- FEEDBACKS SECTION -->
+<section id="feedbacks">
+    <!-- BODY -->
+    <div class="jumbotron jumbotron-fluid" style="background: url({% static 'images/feedbacksbg.jpg' %}) no-repeat fixed bottom center/cover;">
+        <div class="container text-center" style="background-color: rgba(255,255,255,0.5)">
+            <h1 class="hero-text" style="text-shadow: 2px 2px 4px rgba(250, 7, 97,0.6);">YOUR SUGGESTIONS CAN MAKE A DIFFERNECE</h1>
+            <h4 class="secondary-text" style="text-shadow: 2px 2px 4px rgba(255,255,255,0.8);">Please leave your valuable feedbacks!</h4>
+        </div>
+    </div>
+    <div class="container text-center">
+        <iframe class="embed-responsive-item" src="https://docs.google.com/forms/d/e/1FAIpQLSeXP6WLjJTweR6roe1agveFTxnnqpg_spTKEdRI5JOiXF0iMA/viewform?embedded=true" width="100%" height="800px" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    </div>
+</section>   
+    
+{% endblock %}
+
+{% include 'includes/footer.html' %}
+<!-- FOOTER SCRIPTS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animateCSS/1.2.2/jquery.animatecss.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="{%static 'zenscroll-min.js' %}"></script>
+</body>
+</html>

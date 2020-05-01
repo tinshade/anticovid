@@ -10,3 +10,6 @@ def facts(request):
 
 def news(request):
     return render(request, 'main/news.html', {'title': 'NEWS Updates | COVID-19 Infomatrics'})
+
+def feedbacks(request):
+    return render(request, 'main/feedbacks.html', {'title': 'FEEDBACKS | COVID-19 Informatrics'})

@@ -11,7 +11,8 @@
           <h1 class="hero-text" style="text-shadow: 2px 2px 4px rgba(250, 7, 97,0.6);">TEST YOUR COVID-19 AWARENESS</h1>
           <h4 class="secondary-text" style="text-shadow: 2px 2px 4px rgba(255,255,255,0.8);">Are you safe from fake news?</h4>
         </div>
-      </div>
+	  </div>
+	  <input style="display:none" autofocus>
       <div id="startscreen" class="container text-center p-5 mt-5 mb-5" style=" background-color: rgba(255,255,255,0.8); box-shadow: 1px 2px 10px rgba(0,0,0,0.8)">
         <h1 class="hero-text" style="margin-top: 7%;">Are you ready?</h1>
         <div class="row p-5">
@@ -24,9 +25,10 @@
         </div>
       </div>
 
-      <!-- GAME SCREEN -->
+	  <!-- GAME SCREEN -->
+	  
       <div class="container quiz p-5" id="gamescreen" style="display: none;  background-color: rgba(255,255,255,0.8) ; box-shadow: 1px 2px 10px rgba(0,0,0,0.8);">
-      	<h1 id="question">LOADING YOUR QUESTION..</h1>
+      	<h3 id="question">LOADING YOUR QUESTION..</h3>
       	<div class="container p-2">
       		 <ul class="qm">
 			  <li class="qm">
@@ -160,6 +162,7 @@
     		y.checked = false
     		n.disabled = false
     		n.checked = false
+			document.getElementById('gamescreen').scrollIntoView(true);
     		detail.style.display = "none"
     		document.getElementById('gamescreen').style.display = "block"
     		var url = 'https://raw.githubusercontent.com/tinshade/anticovid/master/main/static/quiz.json';
@@ -190,6 +193,11 @@
     	
     </script>
 {% endblock %}
+
 {% include 'includes/footer.html' %}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="{%static 'zenscroll-min.js' %}"></script>
 </body>
 </html>
