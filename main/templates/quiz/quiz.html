@@ -1,0 +1,195 @@
+{% load static %}
+{% include 'includes/header.html' %}
+<body>
+{% include 'includes/navbar.html' %}
+{% block content %}
+<!--QUIZ SECTION-->
+    <section id="quiz" style="background: url({% static 'quizbg.svg' %}) no-repeat center/cover;">
+      <!-- BODY -->
+      <div class="jumbotron jumbotron-fluid" style="background: url({% static 'images/quizbg.jpg' %}) no-repeat fixed bottom center/cover;">
+        <div class="container text-center" style="background-color: rgba(255,255,255,0.5)">
+          <h1 class="hero-text" style="text-shadow: 2px 2px 4px rgba(250, 7, 97,0.6);">TEST YOUR COVID-19 AWARENESS</h1>
+          <h4 class="secondary-text" style="text-shadow: 2px 2px 4px rgba(255,255,255,0.8);">Are you safe from fake news?</h4>
+        </div>
+      </div>
+      <div id="startscreen" class="container text-center p-5 mt-5 mb-5" style=" background-color: rgba(255,255,255,0.8); box-shadow: 1px 2px 10px rgba(0,0,0,0.8)">
+        <h1 class="hero-text" style="margin-top: 7%;">Are you ready?</h1>
+        <div class="row p-5">
+          <div class="col-sm-12 col-md-6 col-lg-6">
+            <button class="btn donate-btn" onclick="getqs(); hideme();">YES, Let's go!</button>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-6">
+            <button class="btn alter-btn" onclick="gn()">NO, I need time!</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- GAME SCREEN -->
+      <div class="container quiz p-5" id="gamescreen" style="display: none;  background-color: rgba(255,255,255,0.8) ; box-shadow: 1px 2px 10px rgba(0,0,0,0.8);">
+      	<h1 id="question">LOADING YOUR QUESTION..</h1>
+      	<div class="container p-2">
+      		 <ul class="qm">
+			  <li class="qm">
+			    <input type="radio" onclick="checkans(this.value)" id="f-option" value="y" name="selector">
+			    <label for="f-option">YES, I agree!</label>
+			    <div class="check"></div>
+			  </li>
+			  
+			  <li class="qm">
+			    <input type="radio" onclick="checkans(this.value)" id="s-option" value="n" name="selector">
+			    <label for="s-option">NO, that's not right!</label>
+			    
+			    <div class="check"><div class="inside"></div></div>
+			  </li>
+			</ul>
+			<br>
+			<div class="card text-center rounded p-4" id="detail" style="display: none">
+				<h1 style="display: none" class="card-header text-success" id="success">YOU'RE RIGHT!</h1>
+				<h1 style="display: none" class="card-header text-danger" id="failed">UH OH!</h1>
+				<div class="card-body">
+					<p id="answer" style="font-weight: 700" class="card-text">The vibration created by chanting would not even be sensed by something as small as a virus.</p>
+				</div>
+				<div class="card-footer">
+					<div class="row">
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<button class="btn donate-btn m-2" onclick="getqs()">NEXT</button>
+						</div>
+						<div class="col-sm-12 col-md-6 col-lg-6">
+							<button class="btn alter-btn m-2" onclick="gn()">QUIT</button>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+      	</div>
+      </div>
+      <!-- RESULTS SCREEN -->
+      <div class="container p-3" id="results" style="display: none">
+      	<div class="card text-center">
+      		<h1 class="hero-text">YOUR SCORECARD</h1>
+      		<br>
+      		<hr style="margin:0 auto">
+      		<br>
+      		<div class="card-body p-5">
+				<h1 class="primary-text">YOU SCORED <strong id="score"></strong><strong>/5</strong>!</h1>
+				<br>
+				<h4 class="text-primary"> Consider sharing this quiz with your loved ones to keep them aware! </h4>
+      		</div>
+      		<div class="card-footer">
+  				<div class="container">
+  					<h5>SHARE VIA SOCIAL MEDIA!</h5>
+  					<br>
+  					<hr style="margin:0 auto">
+					<br>
+					<br>
+  					<div class="row">
+  						<div class="col-sm-12 col-lg-4 col-md-4">
+  							<a class="hvr-grow m-2" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fanticovid.herokuapp.com/quiz&t=TEST YOUR AWARENESS','newwindow', 'width=600', 'height=300'); return false;"><i style="color: #3b5998" class="fab fa-facebook fa-3x"></i></a>
+  						</div>
+  						<div class="col-sm-12 col-lg-4 col-md-4">
+  							<a class="hvr-grow m-2"  title="Share via Twitter" onclick="window.open('https://twitter.com/intent/tweet?text=TEST YOUR COVID-19 AWARENESS HERE: https%3A%2F%2Fanticovid.herokuapp.com/quiz','newwindow', 'width=600', 'height=300'); return false;"><i style="color: #1da1f2" class="fab fa-twitter fa-3x"></i></a>
+  						</div>
+  						<div class="col-sm-12 col-lg-4 col-md-4">
+  							<a class="hvr-grow m-2"title="Share via Whatsapp" onclick="window.open('https://wa.me/?text=TEST YOUR COVID-19 AWARENESS HERE: https://anticovid.herokuapp.com/quiz','newwindow', 'width=600', 'height=300'); return false;"><i style="color: #25D366" class="fab fa-whatsapp fa-3x"></i></a>
+  						</div>
+  					</div>
+  				</div>
+      			
+      		</div>
+      	</div>
+      </div>
+    </section>
+
+    <!-- FOOTER SCRIPTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animateCSS/1.2.2/jquery.animatecss.min.js"></script>
+    <script type="text/javascript">
+    	var no_repeat = []
+    	var points = 0
+    	var question = document.getElementById('question')
+    	var answer = document.getElementById('answer')
+    	var detail = document.getElementById("detail")
+    	var success = document.getElementById("success")
+    	var failed = document.getElementById("failed")
+    	var y = document.getElementById("f-option")
+    	var n = document.getElementById("s-option")
+
+		function gn(){
+			document.getElementById('startscreen').innerHTML = `
+			<h1 class="primary-text">THAT'S ALRIGHT!</h1>
+			<br>
+			<h4 class="secondary-text">Just refresh the page when you are ready!</h4>
+			<br>
+			<i class="fas fa-refresh fa-3x text-center hvr-pulse"></i>
+			`
+			document.getElementById('startscreen').style.display = "block"
+			detail.style.display = "none"
+			document.getElementById('gamescreen').style.display = "none"
+			document.getElementById('results').style.display = "none"
+
+			
+		}
+    	function hideme(){
+    		document.getElementById("startscreen").style.display = "none"
+    	}
+    	function checkans(ans){
+    		y.disabled = true;
+    		n.disabled = true;
+    		var url = 'https://raw.githubusercontent.com/tinshade/anticovid/master/main/static/quiz.json';
+			fetch(url)
+			.then(function(response){
+			return response.json();
+			})
+			.then(function(myJson){
+				console.log(no_repeat[no_repeat.length-1])
+				if(myJson[no_repeat[no_repeat.length-1]].o == ans){
+					failed.style.display = "none"
+					success.style.display = "block"
+					detail.className += "bgsuccess"
+					detail.style.display = "block"
+					points = points + 1
+				}else{
+					success.style.display = "none"
+					failed.style.display = "block"
+					detail.className += "bgfail"
+					detail.style.display = "block"
+				}
+			})
+    	}
+    	function getqs(){
+    		y.disabled = false
+    		y.checked = false
+    		n.disabled = false
+    		n.checked = false
+    		detail.style.display = "none"
+    		document.getElementById('gamescreen').style.display = "block"
+    		var url = 'https://raw.githubusercontent.com/tinshade/anticovid/master/main/static/quiz.json';
+			fetch(url)
+			.then(function(response){
+			return response.json();
+			})
+			.then(function(myJson){
+				var random = Math.floor(Math.random() * 11) + 1;
+				if(no_repeat.length != 5){
+					if(no_repeat.includes(random) == false){
+						no_repeat.push(random)
+						var data = myJson[random]
+						question.innerHTML = data.q
+						answer.innerHTML = data.a
+						
+					}else{
+						getqs()
+					}
+				}else{
+					detail.style.display = "none"
+					document.getElementById('gamescreen').style.display = "none"
+					document.getElementById('results').style.display = "block"
+					document.getElementById('score').innerHTML = points
+				}			
+			});
+    	}
+    	
+    </script>
+{% endblock %}
+{% include 'includes/footer.html' %}
+</body>
+</html>
