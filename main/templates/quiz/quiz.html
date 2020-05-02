@@ -8,8 +8,8 @@
       <!-- BODY -->
       <div class="jumbotron jumbotron-fluid" style="background: url({% static 'images/quizbg.jpg' %}) no-repeat fixed bottom center/cover;">
         <div class="container text-center" style="background-color: rgba(255,255,255,0.5)">
-          <h1 class="hero-text" style="text-shadow: 2px 2px 4px rgba(250, 7, 97,0.6);">TEST YOUR COVID-19 AWARENESS</h1>
-          <h4 class="secondary-text" style="text-shadow: 2px 2px 4px rgba(255,255,255,0.8);">Are you safe from fake news?</h4>
+          <h1 class="hero-text">TEST YOUR COVID-19 AWARENESS</h1>
+          <h4 class="secondary-text" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">Are you safe from fake news?</h4>
         </div>
 	  </div>
 	  <input style="display:none" autofocus>
@@ -26,7 +26,6 @@
       </div>
 
 	  <!-- GAME SCREEN -->
-	  
       <div class="container quiz p-5" id="gamescreen" style="display: none;  background-color: rgba(255,255,255,0.8) ; box-shadow: 1px 2px 10px rgba(0,0,0,0.8);">
       	<h3 id="question">LOADING YOUR QUESTION..</h3>
       	<div class="container p-2">
@@ -64,7 +63,50 @@
 				
 			</div>
       	</div>
-      </div>
+	  </div>
+	<!-- SUGGESTION FORM -->
+	<div class="container bg-white text-center p-5" id="tellus" style="margin-bottom: 10%; display: none;">
+		<h3>Got any more detailed questions we missed?</h3>
+		<h2>LET US KNOW RIGHT AWAY!</h2>
+		<br>
+		<button class="btn alter-btn" onclick="togglesq()" id="chevron"><i class="fas fa-chevron-down"></i></button>
+		<br>
+	</div>
+	<section id="sq" style="display: none;">
+		<div class="container text-center" style="display: none; margin-bottom: 10%;" id="sendingquestion">
+			<img src="{% static 'statgif.gif' %}">
+			<h3>Please wait while we record your response..</h3>
+		</div>
+		<div class="container text-center bg-white rounded" style="box-shadow: 1px 2px 10px rgba(0,0,0,0.8); display:none; margin-bottom: 10%;" id="successquestion">
+			<h1 class="hero-text">Thank you <i class="fas fa-heart" style="color:rgb(250, 7, 97)"></i></h1>
+			<br>
+			<h4>Your response has been recorded!</h4>
+			<br>
+		</div>
+		<div class="container text-center bg-white rounded" style="box-shadow: 1px 2px 10px rgba(0,0,0,0.8); display:none; margin-bottom: 10%;" id="failedquestion">
+			<h1 class="hero-text">Thank you <i class="fas fa-heart-broken" style="color:rgb(250, 7, 97)"></i></h1>
+			<br>
+			<h4>We encountered an error!</h4>
+			<small class="text-muted">Try again later!</small>
+			<br>
+		</div>
+		<div class="container col-md-10 col-lg-10 col-sm-12 p-3" style="display: block; margin-bottom: 10%;" id="sendingform">
+			<label for="full_name">What's your name?</label>
+			<input id="full_name" class="form-control" required autofocus placeholder="Enter your full name here....">
+			<br>
+			<label for="squestion">Framed question</label>
+			<input id="squestion" class="form-control" required placeholder="Enter your question statement....">
+			<br>
+			<label for="sanswer">Y|N answer</label>
+			<input id="sanswer" class="form-control" required placeholder="Answer in YES | NO">
+			<br>
+			<label for="sexplanation">Give us a brief explanation</label>
+			<textarea class="form-control" required style="resize: none;" id="sexplanation" rows=7 maxlength="200" placeholder="Briefly explain your answer here.."></textarea>
+			<div class="text-center container">
+				<button class="btn donate-btn" id="sendbtn" onclick="qsend()">SEND<i class="fas fa-paper-plane"></i></button>
+			</div>
+		</div>
+	</section>
       <!-- RESULTS SCREEN -->
       <div class="container p-3" id="results" style="display: none">
       	<div class="card text-center">
@@ -100,104 +142,51 @@
       		</div>
       	</div>
       </div>
-    </section>
-
+	</section>
     <!-- FOOTER SCRIPTS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animateCSS/1.2.2/jquery.animatecss.min.js"></script>
-    <script type="text/javascript">
-    	var no_repeat = []
-    	var points = 0
-    	var question = document.getElementById('question')
-    	var answer = document.getElementById('answer')
-    	var detail = document.getElementById("detail")
-    	var success = document.getElementById("success")
-    	var failed = document.getElementById("failed")
-    	var y = document.getElementById("f-option")
-    	var n = document.getElementById("s-option")
-
-		function gn(){
-			document.getElementById('startscreen').innerHTML = `
-			<h1 class="primary-text">THAT'S ALRIGHT!</h1>
-			<br>
-			<h4 class="secondary-text">Just refresh the page when you are ready!</h4>
-			<br>
-			<i class="fas fa-refresh fa-3x text-center hvr-pulse"></i>
-			`
-			document.getElementById('startscreen').style.display = "block"
-			detail.style.display = "none"
-			document.getElementById('gamescreen').style.display = "none"
-			document.getElementById('results').style.display = "none"
-
-			
-		}
-    	function hideme(){
-    		document.getElementById("startscreen").style.display = "none"
-    	}
-    	function checkans(ans){
-    		y.disabled = true;
-    		n.disabled = true;
-    		var url = 'https://raw.githubusercontent.com/tinshade/anticovid/master/main/static/quiz.json';
-			fetch(url)
-			.then(function(response){
-			return response.json();
-			})
-			.then(function(myJson){
-				console.log(no_repeat[no_repeat.length-1])
-				if(myJson[no_repeat[no_repeat.length-1]].o == ans){
-					failed.style.display = "none"
-					success.style.display = "block"
-					detail.className += "bgsuccess"
-					detail.style.display = "block"
-					points = points + 1
-				}else{
-					success.style.display = "none"
-					failed.style.display = "block"
-					detail.className += "bgfail"
-					detail.style.display = "block"
-				}
-			})
-    	}
-    	function getqs(){
-    		y.disabled = false
-    		y.checked = false
-    		n.disabled = false
-    		n.checked = false
-			document.getElementById('gamescreen').scrollIntoView(true);
-    		detail.style.display = "none"
-    		document.getElementById('gamescreen').style.display = "block"
-    		var url = 'https://raw.githubusercontent.com/tinshade/anticovid/master/main/static/quiz.json';
-			fetch(url)
-			.then(function(response){
-			return response.json();
-			})
-			.then(function(myJson){
-				var random = Math.floor(Math.random() * 11) + 1;
-				if(no_repeat.length != 5){
-					if(no_repeat.includes(random) == false){
-						no_repeat.push(random)
-						var data = myJson[random]
-						question.innerHTML = data.q
-						answer.innerHTML = data.a
-						
-					}else{
-						getqs()
-					}
-				}else{
-					detail.style.display = "none"
-					document.getElementById('gamescreen').style.display = "none"
-					document.getElementById('results').style.display = "block"
-					document.getElementById('score').innerHTML = points
-				}			
-			});
-    	}
-    	
-    </script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/animateCSS/1.2.2/jquery.animatecss.min.js"></script>
+    <script type="text/javascript" src="{% static 'quiz.js' %}"></script>
 {% endblock %}
 
 {% include 'includes/footer.html' %}
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="{%static 'zenscroll-min.js' %}"></script>
+<script>
+	function qsend(){
+		var fn = $('#full_name').val()
+		var q = $('#squestion').val()
+		var a = $('#sanswer').val()
+		var exp = $('#sexplanation').val()
+		var tellus = $('#tellus').hide()
+		var wait = $('#sendingquestion').show()
+		$('#sendingform').show()
+		$.ajax({
+			type: "GET",
+			url: 'mq',
+			data:{fn:fn,q:q,a:a,exp:exp},
+			success:function(reply){
+				if(reply == "Done"){
+					wait.hide()
+					$('#sendingform').hide()
+					$('#failedquestion').hide()
+					$('#successquestion').show()
+				}else{
+					wait.hide()
+					$('#sendingform').hide()
+					$('#successquestion').hide()
+					$('#failedquestion').show()
+				}
+			},
+			error:function(xhr){
+				wait.hide()
+				$('#sendingform').hide()
+				$('#successquestion').hide()
+				$('#failedquestion').show()
+			}
+		})
+	}
+</script>
 </body>
 </html>

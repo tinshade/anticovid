@@ -99,7 +99,7 @@ function getall(){
       main.style.display = "block"
       function myprinter(item){
         if(item.state == statename && item.city == citiname && item.category == categories){
-          tabres.innerHTML +=`<tr><td>${item.city}</td><td>${item.category}</td><td class="org">${item.nameoftheorganisation}</td><td class="des">${item.descriptionandorserviceprovided}</td><td>${item.phonenumber}</td></tr>`
+          tabres.innerHTML +=`<tr><td>${item.city}</td><td>${item.category}</td><td>${item.nameoftheorganisation}</td><td>${item.descriptionandorserviceprovided}</td><td>${item.phonenumber}</td></tr>`
         }
       }
     })

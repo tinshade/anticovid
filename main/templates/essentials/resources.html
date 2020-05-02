@@ -53,8 +53,8 @@
             <tr>
               <th scope="col">City</th>
               <th scope="col">Category</th>
-              <th scope="col">Organisation</th>
-              <th scope="col">Description</th>
+              <th scope="col" class="org">Organisation</th>
+              <th scope="col" class="des">Description</th>
               <th scope="col">Phone</th>
             </tr>
           </thead>
@@ -64,6 +64,16 @@
       </div>
   </div>
   <!-- FOOTER SCRIPTS -->
+  <script type="text/javascript">
+    function disclaimer() {
+    var x = document.getElementById("dd");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+  </script>
   <script type="text/javascript" src="{% static 'knowledge.js' %}"></script>
 </section>
 {% endblock %}
