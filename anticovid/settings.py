@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'social.apps.SocialConfig',
     'essentials.apps.EssentialsConfig',
     'quiz.apps.QuizConfig',
+    'talker.apps.TalkerConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
