@@ -12,4 +12,5 @@ urlpatterns = [
     path('essentials/', include('essentials.urls'), name="essentials"),
     path('quiz/', include('quiz.urls'), name="quiz"),
     path('talker/', include('talker.urls'), name="talker"),
+    path('zones/', include('zones.urls'), name="zones"),
 ]

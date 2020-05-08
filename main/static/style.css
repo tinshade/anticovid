@@ -348,6 +348,17 @@ input[type=radio]:checked ~ label{
   }
 }
 
+label{
+  font-weight: 900;
+}
+@media(max-width: 530px){
+  .source{
+    display: none;
+  }
+  .lup{
+    display: none;
+  }
+}
 /* CHAT WINDOW CSS */
 
 #center-text {          
@@ -516,7 +527,6 @@ input[type=radio]:checked ~ label{
         height:40vh;
     }
 }
-
 .chat-msg.user > .msg-avatar img {
   width:45px;
   height:45px;
