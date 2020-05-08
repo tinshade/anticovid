@@ -62,6 +62,45 @@
 		</div>
 	</section>
 	<hr>
+	<!-- ZONES SECTION -->
+	<div id="quiz" class="jumbotron jumbotron-fluid" style="background: url({% static 'images/zones.jpg' %}) no-repeat fixed bottom center/cover;">
+		<div class="container text-center" style="background-color: rgba(255,255,255,0.5)">
+			<h1 class="hero-text" style="text-shadow: 2px 2px 4px rgba(250, 7, 97,0.6);">COVID-19 ZONES IN INDIA</h1>
+			<h4 class="secondary-text" style="text-shadow: 2px 2px 4px rgba(255,255,255,0.8);">Know your ZONES</h4>
+			<div class="contianer mt-2">
+				<div class="row">
+					<div class="col-lg-3 col-sm-12 col-md-3 pd-2 pt-2">
+						<h1>Total Zones</h1>
+						<hr>
+						<br>
+						<h2 id="tzones"><img src="{% static 'statgif.gif' %}"></h2>
+					</div>
+					<div class="col-lg-3 col-sm-12 col-md-3 pd-2 pt-2">
+						<h1>Red Zones</h1>
+						<hr>
+						<br>
+						<h2 id="rzones"><img src="{% static 'statgif.gif' %}"></h2>
+					</div>
+					<div class="col-lg-3 col-sm-12 col-md-3 pd-2 pt-2">
+						<h1>Orange Zones</h1>
+						<hr>
+						<br>
+						<h2 id="ozones"><img src="{% static 'statgif.gif' %}"></h2>
+					</div>
+					<div class="col-lg-3 col-sm-12 col-md-3 pd-2 pt-2">
+						<h1>Green Zones</h1>
+						<hr>
+						<br>
+						<h2 id="gzones"><img src="{% static 'statgif.gif' %}"></h2>
+					</div>
+				</div>
+			</div>
+			<div class="container p-2 text-center">
+			<a href="zones" class="btn" title="Know your zones!"  target="_blank">KNOW MORE <i class="fas fa-arrow-right"></i></a>
+			</div>		  
+		</div>
+	</div>
+	<hr>
 	<!-- MAP SECTION -->
 	<section id="LiveTrack" class="text-center container-fluid p-5 mt-5 mb-5">
 		<h4>HOVER OVER THE STATES</h4>
@@ -324,14 +363,15 @@
 	</section>
 	<!-- QUIZ SECTION -->
 	<div id="quiz" class="jumbotron jumbotron-fluid" style="background: url({% static 'images/quizbg.jpg' %}) no-repeat fixed bottom center/cover;">
-        <div class="container text-center" style="background-color: rgba(255,255,255,0.5)">
-          <h1 class="hero-text" style="text-shadow: 2px 2px 4px rgba(250, 7, 97,0.6);">TEST YOUR COVID-19 AWARENESS</h1>
-		  <h4 class="secondary-text" style="text-shadow: 2px 2px 4px rgba(255,255,255,0.8);">Are you safe from fake news?</h4>
-		  <div class="container p-2 text-center">
+		<div class="container text-center" style="background-color: rgba(255,255,255,0.5)">
+			<h1 class="hero-text" style="text-shadow: 2px 2px 4px rgba(250, 7, 97,0.6);">TEST YOUR COVID-19 AWARENESS</h1>
+			<h4 class="secondary-text" style="text-shadow: 2px 2px 4px rgba(255,255,255,0.8);">Are you safe from fake news?</h4>
+			<div class="container p-2 text-center">
 			<a href="quiz" class="btn" title="Take the quiz"  target="_blank">START <i class="fas fa-arrow-right"></i></a>
-		  </div>		  
-        </div>
-      </div>
+			</div>		  
+		</div>
+	</div>
+	<hr>
 	<!-- NEWS SECTION -->
 	<section>
 		<div class="container text-center">
@@ -717,8 +757,6 @@
 	<hr>
 	<br>
 	<br>
-	<!-- TALKER SECTION -->
-	{% include 'talker/talker.html' %}
 	<!-- DONATION MODAL SECTION -->
 	<!-- Button trigger modal -->
 	<button type="button" style="display: none" id="donatebtn" class="btn btn-primary" data-toggle="modal" data-target="#Donate"></button>
@@ -776,9 +814,8 @@
 			document.getElementById('donatebtn').click();
 		}
 	</script>
+	{% include "talker/talker.html" %}
 	{% include "includes/footer.html" %}
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<!-- FACTOIDS API SCRIPT -->
 	<script type="text/javascript">
 		var url = 'https://api.covid19india.org/website_data.json';
@@ -979,9 +1016,31 @@
 		var statecodes = ["MH","DL","GJ","RJ","TN","MP","UP","TG","AP","KA","KL","JK","WB","HR","PB","BR","OR","UT","JH","HP","CT","AS","CH","LA","AN","ML","GA","PY","MN","TR","MZ","AR","NL"];
 		autocomplete(document.getElementById("scoderes"), statecodes);
 	</script>
+	<script>
+		var tzones = document.getElementById('tzones')
+		var gzones = document.getElementById('gzones')
+		var rzones = document.getElementById('rzones')
+		var ozones = document.getElementById('ozones')
+		fetch("https://covid-19-india-data-by-zt.p.rapidapi.com/GetIndiaNumberOfDistrictsPerZone", {
+			"method": "GET",
+			"headers": {
+				"x-rapidapi-host": "covid-19-india-data-by-zt.p.rapidapi.com",
+				"x-rapidapi-key": "b827ab8680mshbd7949fbb60d632p1ff3cfjsn6f4462105676"
+			}
+		})
+		.then(function(response) {
+	    	return response.json();
+	  	})
+		.then(function(response){
+			tzones.innerHTML = `<span style="color: red">${response.data['Total']}</span>`
+    		gzones.innerHTML = `<span style="color: red">${response.data['Green']}</span>`
+    		rzones.innerHTML = `<span style="color: red">${response.data['Red']}</span>`
+    		ozones.innerHTML = `<span style="color: red">${response.data['Orange']}</span>`
+		})
+		
+	</script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script src="{%static 'zenscroll-min.js' %}"></script>

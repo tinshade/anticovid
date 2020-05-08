@@ -1,6 +1,6 @@
 
 <!-- TALKER SECTION -->
-<div id="body" style="z-index: 99999999999999;">
+<div id="body">
 	<div id="chat-circle" class="btn btn-raised">
 		<div id="chat-overlay"></div>
 		<i class="fas fa-comment-alt fa-3x"></i>
@@ -27,13 +27,28 @@
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 <script type="text/javascript">
 	$(function() {
-  var INDEX = 0; 
+  var INDEX = 0;
+  
   $("#chat-submit").click(function(e) {
     e.preventDefault();
-    var msg = $("#chat-input").val(); 
+    var msg = $("#chat-input").val();
+    var replied = '';
     if(msg.trim() == ''){
       return false;
     }
+    $.ajax({
+      type: "GET",
+      url: 'askbot',
+      data: {asked: msg},
+      success:function(reply){
+        console.log(reply['r']);
+        replied = reply['r']
+      },
+      error:function(xhr){
+        console.log(xhr);
+        replied = "Error"
+      }
+    })
     generate_message(msg, 'self');
     var buttons = [
         {
@@ -46,7 +61,7 @@
         }
       ];
     setTimeout(function() {      
-      generate_message(msg, 'user');  
+      generate_message(replied, 'user');  
     }, 1000)
     
   })

@@ -187,7 +187,7 @@ a:hover, a:focus, a:active { outline: 0; }
   width: 100%;
   height: 100vh;
   z-index: 999999;
-  background: rgba(0,0,0,0.9) url('loading.gif') no-repeat center center;
+  background: rgba(0,0,0,0.9) url("loading.107263697587.gif") no-repeat center center;
 }
 
 svg {

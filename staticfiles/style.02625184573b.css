@@ -187,7 +187,7 @@ a:hover, a:focus, a:active { outline: 0; }
   width: 100%;
   height: 100vh;
   z-index: 999999;
-  background: rgba(0,0,0,0.9) url('loading.gif') no-repeat center center;
+  background: rgba(0,0,0,0.9) url("loading.107263697587.gif") no-repeat center center;
 }
 
 svg {
@@ -349,7 +349,6 @@ input[type=radio]:checked ~ label{
 }
 
 /* CHAT WINDOW CSS */
-
 #center-text {          
   display: flex;
   flex: 1;
@@ -431,14 +430,14 @@ input[type=radio]:checked ~ label{
 }
 .chat-box-body:after {
   content: "";
-  opacity: 1;
+  background-color: white;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   height:100%;
   position: absolute;
-  z-index: 10000000000000;   
+  z-index: 7;   
 }
 #chat-input {
   background: #f4f7f9;
@@ -494,7 +493,7 @@ input[type=radio]:checked ~ label{
 .chat-logs::-webkit-scrollbar-track
 {
   box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	background-color: #F5F5F5;
 }
 

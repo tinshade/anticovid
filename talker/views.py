@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 
-
+'''
 import random
 greet = ['hi', 'hello', 'anyone', 'there', '?']
 
@@ -52,7 +52,8 @@ def week():
 	return week
 
 def bot(request):
-	inp = request.POST.lower()
+	inp = request.GET.lower()
+	print(inp)
 	if inp in greet:
 		print(greet_response[random.randint(0, len(greet_response))])
 	elif inp in hru:
@@ -69,6 +70,9 @@ def bot(request):
 			print(each)
 	else:
 		print("Sorry, I didn't get that. Try rephrasing your question?")
+'''
 
+def askbot(request):
+	print(request.GET)
 def talker(request):
     return render(request, 'talker/talker.html', {'title': 'Talker | COVID-19 Informatrics'})
