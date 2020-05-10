@@ -31,6 +31,7 @@ options = [
 'Fetch country-wise data(status country countryname)',
 'Fetch state-wise data(status state statename)',
 'Fetch symptoms related to COVID-19',
+'Fetch resources by state(resources statename)'
 'Debunk myths related to COVID-19 with facts',
 'State best practices to aid against COVID-19',
 ]
@@ -85,9 +86,8 @@ best_response = [
     {'s':'If you have a fever, cough and difficulty breathing, seek medical attention, but call by telephone in advance if possible and follow the directions of your local health authority.', 'a':'National and local authorities will have the most up to date information on the situation in your area. Calling in advance will allow your health care provider to quickly direct you to the right health facility. This will also protect you and help prevent spread of viruses and other infections.'},
     {'s':'Keep up to date on the latest information from trusted sources, such as WHO or your local and national health authorities.', 'a':'Local and national authorities are best placed to advise on what people in your area should be doing to protect themselves.'}
 ]
-
+qmyth = ['myths', 'myth', 'fact', 'facts', 'knowledge']
 best_practices = ["what are the best practices?", "best?", "practices?","best", "practices", "best practices?", "best practices", "suggestions", "suggestion", "suggest", 'prevention', 'preventions', 'preventional measures', 'safe', 'protection', 'protection against coronavirus', 'protection against', 'stop the spread']
-
 appreciation=["good", "amazing","wow", "wonderful","great", "brilliant", "fabulous", "fantastic"]
 thanks = [
     f"Was that a compliment? Thank you so much! <i class='fas fa-smile-beam text-warning'></i><br>Please consider leaving a feedback <a href='/feedbacks' target='_blank' title='Feedback!'>here!</a>",
@@ -160,6 +160,27 @@ def getcountrywise(country):
 	data = response.json()
 	return data
 
+#FETCH RESOURCES
+def getresources(statename):
+    url = "https://api.covid19india.org/resources/resources.json"
+    state = statename.capitalize().replace(" ","") 
+    response = requests.request("GET", url)
+    data = response.json()
+    count = 1
+    senddata = {'category': "", 'city': "", 'contact': "", 'organisation': "", 'phone': ""}
+    for each in data['resources']:
+        if state == each['state'].replace(' ',''):
+            senddata['category'] = each['category']
+            senddata['city'] = each['city']
+            senddata['contact'] = each['contact']
+            senddata['description'] = each['descriptionandorserviceprovided']
+            senddata['organisation'] = each['nameoftheorganisation']
+            senddata['phone'] = each['phonenumber']
+        else:
+            pass
+    
+    return senddata
+
 def askbot(request):
     inp = request.GET['asked'].lower()
     reply = ''
@@ -182,7 +203,7 @@ def askbot(request):
         reply = "If you feel sick or cold, visit a doctor soon!<br>Here are some symptoms:"
         for each in symptoms:
             reply += f"<strong>{each}</strong>"
-    elif "myths" in inp or "facts" in inp:
+    elif inp in qmyth:
         reply = "Here's a myth debunk for you!<br><br>"
         myth =  myths[random.randint(0,len(myths)-1)]
         reply += f"<p style='font-weight: 700'>{myth['s']}</p><br>"
@@ -201,6 +222,14 @@ def askbot(request):
         reply += f"Active cases: <strong>{showdata['active']}</strong><br>"
         reply += f"Recovered: <strong>{showdata['recovered']}</strong><br>"
         reply += f"Deceased: <strong>{showdata['deaths']}</strong><br>"
+    elif "resources" in inp or "resource" in inp or "essentials" in inp or "essentials" in inp:
+        sn = inp.split()
+        if len(sn) == 2:
+            showdata = getresources(sn[1])
+            reply = f"Showing a few resources in <strong>{sn[1].capitalize()}</strong><br><br>"
+            reply += f"There's <span style='color:#f71a56;'>{showdata['category']}</span> in <span style='color:#f71a56;'>{showdata['city']}</span> run by <span style='color:#f71a56;'>{showdata['organisation']}</span>!<br>"
+            reply += f"Contact them at <a style='color:#f71a56' href='tel:{showdata['phone']}'>{showdata['phone']}</a> or reach out <a href='{showdata['contact']}' title='Organisation website'>here!</a>"
+            reply += "<p style='font-weight: 400'>For more resources, visit this <a href='/essentials' title='Our Essentials Page'>page</a>!</p>"
 
     elif "status" in inp and "state" in inp:
         sn = inp.split()
@@ -236,6 +265,5 @@ def askbot(request):
         
     
     return JsonResponse({"r":reply}, safe= False)
-
 def essentials(request):
     return render(request, 'essentials/resources.html', {'title': "Resources | COVID-19 Informatrics"})
