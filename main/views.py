@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 import random
 import requests
 def home(request):
-    return render(request, 'main/index.html', {'title': 'COVID-19 Infomatrics'})
+    return render(request, 'main/index.html', {'title': 'Home | COVID-19 Infomatrics'})
     
 def facts(request):
     return render(request, 'main/factoids.html', {'title': 'Factoids | COVID-19 Infomatrics'})

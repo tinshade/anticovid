@@ -64,7 +64,7 @@
 	<hr>
 	<!-- ZONES SECTION -->
 	<div id="quiz" class="jumbotron jumbotron-fluid" style="background: url({% static 'images/zones.jpg' %}) no-repeat fixed bottom center/cover;">
-		<div class="container text-center" style="background-color: rgba(255,255,255,0.5)">
+		<div class="container text-center" style="background-color: rgba(255,255,255,0.8)">
 			<h1 class="hero-text" style="text-shadow: 2px 2px 4px rgba(250, 7, 97,0.6);">COVID-19 ZONES IN INDIA</h1>
 			<h4 class="secondary-text" style="text-shadow: 2px 2px 4px rgba(255,255,255,0.8);">Know your ZONES</h4>
 			<div class="contianer mt-2">
@@ -318,7 +318,13 @@
 	  </div>
 	  <div class="col-md-6 col-lg-6 col-sm-12 text-center">
 		  <h3 class="text-danger" style="text-transform: capitalize;" id="snamem"><i class="fas fa-arrow-left mr-4"></i>HOVER OVER A STATE</h3>
+		  <br>
+		
 	    <div class="row">
+			<div class="card mt-3 mb-3 pb-5 col-sm-12 col-md-12 col-lg-12" style="box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);">
+				<h5 class="card-header" style="color:rgb(247, 195, 26);border-bottom: none">CONFIRMED</h5>
+				<h1 class="text-warning" id="confirmedhere"></h1>
+			</div>
 	      <div class="col-sm-12 col-md-4 col-lg-4">
 	        <div class="card mt-3 mb-3" style="box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);">
 	          <h5 class="card-header" style="color:rgb(247, 26, 55);border-bottom: none">ACTIVE</h5>
@@ -920,12 +926,17 @@
 	  function getdetails(obj){
 	    var name = obj.id
 		document.getElementById('snamem').innerHTML = name
+		var confirmednow = document.getElementById('confirmedhere')
 	    var activenow = document.getElementById('activehere')
 	    var renow = document.getElementById('rehere')
 	    var deadnow = document.getElementById('deadhere')
-	    activenow.innerHTML = displayData[name].active
+	    confirmed = parseInt(displayData[name].active) + parseInt(displayData[name].dead) + parseInt(displayData[name].recovered)
+		activenow.innerHTML = displayData[name].active
 	    renow.innerHTML = displayData[name].dead
 	    deadnow.innerHTML = displayData[name].recovered
+		confirmednow.innerHTML = confirmed
+		
+		
 	  }
 
 	  function getind(){
