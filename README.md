@@ -8,18 +8,18 @@ The web application is made to be an one-stop solution for people seeking inform
 about the pandemic.
 
 >Currently you can:
-1. Search for resoures by district and city! Check it [HERE](https://anticovid.herokuapp.com/essentials/)
+1. Search for resoures by district and city! Check it [HERE](https://anticovid.herokuapp.com/essentials)
 2. See India's current statistics on an interactive map of India
 3. See every state's current statistics
 4. Chat with a bot to fetch quick information. (Ask for help by simply typing help!)
-5. Play a quiz [HERE](https://anticovid.herokuapp.com/quiz/)
-6. See what's on Twitter with twitter scrappinng by going [HERE](https://anticovid.herokuapp.com/social/)
-7. See what's new with the news section right [HERE](https://anticovid.herokuapp.com/news/)
-8. See some facts over [HERE](https://anticovid.herokuapp.com/facts/)
-9. See what zone you are in. Go [HERE](https://anticovid.herokuapp.com/zones/)
-10. Share your feedback with me! You can do that [HERE](https://anticovid.herokuapp.com/feedbacks/)
+5. Play a quiz [HERE](https://anticovid.herokuapp.com/quiz)
+6. See what's on Twitter with twitter scrappinng by going [HERE](https://anticovid.herokuapp.com/social)
+7. See what's new with the news section right [HERE](https://anticovid.herokuapp.com/news)
+8. See some facts over [HERE](https://anticovid.herokuapp.com/facts)
+9. See what zone you are in. Go [HERE](https://anticovid.herokuapp.com/zones)
+10. Share your feedback with me! You can do that [HERE](https://anticovid.herokuapp.com/feedbacks)
 
-You can check out the website in its entirety right [HERE](https://anticovid.herokuapp.com/)
+You can check out the website in its entirety right [HERE](https://anticovid.herokuapp.com)
 
 ## Future Plans
 1. Predict the curve
