@@ -1,8 +1,32 @@
 from django.shortcuts import render
 import tweepy
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 import random
 import requests
+
+
+def get_tweets():
+	a = {'t':[]}
+	api_key = "8qXBNViMseFIPsH9pxUTKM0Eg"
+	api_secret_key = "GTm7ANRzW9elDfdoL0drOAymoedUMeDK9IdpIP55SPjWK2Fl5N"
+	access_token = "766850384593690624-ngMv6jL3Slzc8eV2tKAlYG8MCp1OsZ9"
+	access_token_secret = "PtrMuoL6pDnJ8W1xaHeiuMwqy8zFKETDwiBcsWoDH19MO"
+	auth = tweepy.OAuthHandler(api_key, api_secret_key)
+	auth.set_access_token(access_token, access_token_secret)
+	api = tweepy.API(auth, wait_on_rate_limit=True)
+	search_words=['covid', 'covid19', 'indiafightscorona']
+	for tweet in tweepy.Cursor(api.search, q=search_words,).items(42):
+		a['t'].append(tweet._json)
+	return a
+
+twcontext={
+    'title':'Social Feed | COVID-19 Informatrics',
+	'tweets': get_tweets()
+}
+def social(request):
+    return render(request,'social/social.html',twcontext)
+
+
 
 
 ####BOT SECTION####
@@ -89,11 +113,11 @@ best_response = [
 ]
 qmyth = ['myths', 'myth', 'fact', 'facts', 'knowledge']
 best_practices = ["what are the best practices?", "best?", "practices?","best", "practices", "best practices?", "best practices", "suggestions", "suggestion", "suggest", 'prevention', 'preventions', 'preventional measures', 'safe', 'protection', 'protection against coronavirus', 'protection against', 'stop the spread']
-appreciation=["good", "amazing","wow", "wonderful","great", "brilliant", "fabulous", "fantastic"]
+appreciation=["good", "amazing","wow", "wonderful","great", "brilliant", "fabulous", "fantastic", 'futuristic', 'feedback']
 thanks = [
     f"Was that a compliment? Thank you so much! <i class='fas fa-smile-beam text-warning'></i><br>Please consider leaving a feedback <a href='/feedbacks' target='_blank' title='Feedback!'>here!</a>",
     f"Like my efforts?<br>Please consider leaving a feedback <a href='/feedbacks' target='_blank' title='Feedback!'>here!</a>",
-    f"So kind! <i class='fas fa-heart text-danger'></i><br>Please consider leaving a feedback <a href='/feedbacks' target='_blank' title='Feedback!'>here!</a>"
+    f"So kind! <i class='fas fa-heart text-danger'></i><br>Please consider leaving a feedback <a href='/feedbacks' target='_blank' title='Feedback!'>here!</a>",
     f"I am glad I could be of service! <i class='fas fa-smile text-warning'></i><br>Please consider leaving a feedback <a href='/feedbacks' target='_blank' title='Feedback!'>here!</a>"
 ]
 def week():
@@ -105,8 +129,8 @@ def week():
 def getinddata():
 	url = "https://covid-19-india-data-by-zt.p.rapidapi.com/GetIndiaTotalCounts"
 	headers = {
-        'x-rapidapi-host': "covid-19-india-data-by-zt.p.rapidapi.com",
-		'x-rapidapi-key': "b827ab8680mshbd7949fbb60d632p1ff3cfjsn6f4462105676"
+        "x-rapidapi-host": "covid-19-india-data-by-zt.p.rapidapi.com",
+		"x-rapidapi-key": "4c265e0db5msh2d261aab83a8dfbp1d9134jsnfb7360ed7019"
 	}
 	response = requests.request("GET", url, headers=headers)
 	data = response.json()
@@ -119,23 +143,25 @@ def getinddata():
 
 #GETTING STATEWISE STATS
 def getstatestat(statename):
-    sn = statename.capitalize()
-    senddata = {"active": 0, "recovered":0, "deaths":0, "confirmed":0}
-    url = "https://covid-19-india-data-by-zt.p.rapidapi.com/GetIndiaStateWiseData"    
-    headers = {
-        'x-rapidapi-host': "covid-19-india-data-by-zt.p.rapidapi.com",
-        'x-rapidapi-key': "b827ab8680mshbd7949fbb60d632p1ff3cfjsn6f4462105676"
-    }
-    response = requests.request("GET", url, headers=headers)
+    sn = statename.replace(' ', '').lower()
+    senddata = {"statename":None, "active": 0, "recovered":0, "deaths":0, "confirmed":0}
+    url = "https://api.covid19india.org/state_district_wise.json"
+    response = requests.request("GET", url)
     data = response.json()
-    for each in data['data']:
-        if sn in each['name']:
-            senddata['confirmed'] = each['confirmed']
-            senddata['active'] = each['active']
-            senddata['recovered'] = each['recovered']
-            senddata['deaths'] = each['deaths']
-        else:
-            pass
+    active,confirmed,recovered,deaths = 0,0,0,0
+    for each in data:
+        if each.lower().replace(' ','') == sn:
+            for key, value in data[each]['districtData'].items():
+                active = active+value['active']
+                confirmed = confirmed+value['confirmed']
+                recovered = recovered+value['recovered']
+                deaths = deaths+value['deceased']
+            senddata['statename'] = each
+            senddata['active'] = active
+            senddata['confirmed'] = confirmed
+            senddata['recovered'] = recovered
+            senddata['deaths'] = deaths
+
     return senddata
 
 #FETCH GLOBAL DATA
@@ -235,12 +261,22 @@ def askbot(request):
     elif "status" in inp and "state" in inp:
         sn = inp.split()
         if len(sn) == 3:
-            showdata = getstatestat(sn[2])
-            reply = f"Statistics in <strong>{sn[2].capitalize()}</strong>:<br><hr><br>"
+            showdata = getstatestat(sn[2].replace('&','and'))
+            reply = f"Statistics in <strong>{showdata['statename']}</strong>:<br><hr><br>"
             reply += f"Confirmed cases: <strong>{showdata['confirmed']}</strong><br>"
             reply += f"Active cases: <strong>{showdata['active']}</strong><br>"
             reply += f"Recovered: <strong>{showdata['recovered']}</strong><br>"
             reply += f"Deceased: <strong>{showdata['deaths']}</strong><br>"
+        elif len(sn) > 3:
+            ns = ""
+            for each in sn[2::]:
+                ns += each.replace('&','and')
+                showdata = getstatestat(ns)
+                reply = f"Statistics in <strong>{showdata['statename']}</strong>:<br><hr><br>"
+                reply += f"Confirmed cases: <strong>{showdata['confirmed']}</strong><br>"
+                reply += f"Active cases: <strong>{showdata['active']}</strong><br>"
+                reply += f"Recovered: <strong>{showdata['recovered']}</strong><br>"
+                reply += f"Deceased: <strong>{showdata['deaths']}</strong><br>"
         else:
             reply = "If you need statistics for an Indian state, try typing<br><i>status state statename</i>"
     elif "country" in inp and "status" in inp:
@@ -266,23 +302,3 @@ def askbot(request):
         
     
     return JsonResponse({"r":reply}, safe= False)
-def get_tweets():
-	a = {'t':[]}
-	api_key = "8qXBNViMseFIPsH9pxUTKM0Eg"
-	api_secret_key = "GTm7ANRzW9elDfdoL0drOAymoedUMeDK9IdpIP55SPjWK2Fl5N"
-	access_token = "766850384593690624-ngMv6jL3Slzc8eV2tKAlYG8MCp1OsZ9"
-	access_token_secret = "PtrMuoL6pDnJ8W1xaHeiuMwqy8zFKETDwiBcsWoDH19MO"
-	auth = tweepy.OAuthHandler(api_key, api_secret_key)
-	auth.set_access_token(access_token, access_token_secret)
-	api = tweepy.API(auth, wait_on_rate_limit=True)
-	search_words=['covid', 'covid19', 'indiafightscorona']
-	for tweet in tweepy.Cursor(api.search, q=search_words,).items(42):
-		a['t'].append(tweet._json)
-	return a
-
-twcontext={
-    'title':'Social Feed | COVID-19 Informatrics',
-	'tweets': get_tweets()
-}
-def social(request):
-    return render(request,'social/social.html',twcontext)
