@@ -573,3 +573,29 @@ html, body {
     clear: both;
     margin-bottom: 70px;
 }
+
+/*CUSTOM SCROLLBAR*/
+::-webkit-scrollbar{
+	width: 10px;
+}
+::-webkit-scrollbar-track{
+	background-color: rgba(255, 240, 244,0.15);
+}
+::-webkit-scrollbar-thumb{
+	border-radius: 2px;
+	background-color: rgb(247, 26, 86);
+}
+
+::-webkit-scrollbar-thumb:hover{
+	background-color: rgb(191, 0, 52);
+}
+
+/*CUSTOM SELECTION TEXT*/
+::-moz-selection {
+	background: rgba(247, 26, 86, 0.3);
+	color: white;
+}
+::selection {
+	background: rgba(247, 26, 86, 0.3);
+	color: white;
+}
