@@ -291,7 +291,8 @@ def askbot(request):
 
 
 def getnews(request):
-    toshow = request.GET['getting'].lower()
+    toshow = request.GET['getting']
+    print(toshow)
     if toshow == "full":
         url = ('http://newsapi.org/v2/top-headlines?country=in&q=covid-19&apiKey=8b24a3b6917a469cb37cbfffb1a10e1f')
     elif toshow == "half":

@@ -29,7 +29,7 @@
 		$.ajax({
 			type: "GET",
 			url: 'getnews',
-			data:{getting:'half'},
+			data:{getting:'full'},
 			async: false,
 			success:function(response){
 				response.newz.articles.forEach(myprinter);
