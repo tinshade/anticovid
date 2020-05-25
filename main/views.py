@@ -288,3 +288,13 @@ def askbot(request):
         
     
     return JsonResponse({"r":reply}, safe= False)
+
+
+def getnews(request):
+    toshow = request.GET['getting'].lower()
+    if toshow == "full":
+        url = ('http://newsapi.org/v2/top-headlines?country=in&q=covid-19&apiKey=8b24a3b6917a469cb37cbfffb1a10e1f')
+    elif toshow == "half":
+        url = ('http://newsapi.org/v2/top-headlines?country=in&q=covid-19&pageSize=3&apiKey=8b24a3b6917a469cb37cbfffb1a10e1f')
+    response = requests.get(url)
+    return JsonResponse({'newz':response.json()}, safe=False)

@@ -845,7 +845,40 @@
 		  });
 	</script>
 	<!-- NEWS API SCRIPT -->
-	<script type="text/javascript">
+	<script>
+		$.ajax({
+			type: "GET",
+			url: 'getnews',
+			data:{getting:'half'},
+			async: false,
+			success:function(response){
+				response.newz.articles.forEach(myprinter);
+				function myprinter(item){
+					var news_posts = document.getElementById('news_posts');
+					var loading = document.getElementById('loading');
+					var author;
+					if(item.author == null){
+						author = "Anonymous";
+					}else{
+						author = item.author;
+					}
+					if(item.urlToImage == null){
+						post_url = '{% static 'post_url.svg' %}'
+						post_title = "No image available"
+					}else{
+						post_url = item.urlToImage
+						post_title = item.title
+					}
+					loading.style.display="none";
+					news_posts.innerHTML += "<div class='col-md-4 col-sm-12 col-lg-4'><div class='container hvr-grow card p-2'><img class='img-fluid card-img-top' style='max-height:221px; min-height:221px;' src='"+post_url+"' alt="+post_title+"><h5 class='card-header'>"+item.title+"</h5><br><span>Author: "+author+"</span><br><small>Posted On: "+item.publishedAt+"</small><div class='card-body p-1'><article class='card-text'>"+item.description+"</article></div><div class='card-footer p-2'><small class='text-muted'>Source: "+item.source.name+"</small><br><small class='text-muted'><a href="+item.url+" title="+item.title+">Read More <i class='fas fa-arrow-right'></a></small></div></div></div>"
+				}
+			},
+			error:function(xhr){
+				console.log(xhr)
+			}
+		})
+	</script>
+	<!-- <script type="text/javascript">
 		var url = 'https://newsapi.org/v2/top-headlines?country=in&q=covid-19&pageSize=6&apiKey=8b24a3b6917a469cb37cbfffb1a10e1f';
 		fetch(url)
 		  .then(function(response) {
@@ -873,7 +906,7 @@
 		    	news_posts.innerHTML += "<div class='col-md-4 col-sm-12 col-lg-4'><div class='container hvr-grow card p-2'><img class='img-fluid card-img-top' style='max-height:221px; min-height:221px;' src='"+post_url+"' alt="+post_title+"><h5 class='card-header'>"+item.title+"</h5><br><span>Author: "+author+"</span><br><small>Posted On: "+item.publishedAt+"</small><div class='card-body p-1'><article class='card-text'>"+item.description+"</article></div><div class='card-footer p-2'><small class='text-muted'>Source: "+item.source.name+"</small><br><small class='text-muted'><a href="+item.url+" title="+item.title+">Read More <i class='fas fa-arrow-right'></a></small></div></div></div>"
 		    }
 		  });
-	</script>
+	</script> -->
 	<!-- COVID-19 STATS SCRIPT -->
 	<script type="text/javascript">
 		var settings = {
@@ -1050,29 +1083,6 @@
 		var statecodes = ["MH","DL","GJ","RJ","TN","MP","UP","TG","AP","KA","KL","JK","WB","HR","PB","BR","OR","UT","JH","HP","CT","AS","CH","LA","AN","ML","GA","PY","MN","TR","MZ","AR","NL"];
 		autocomplete(document.getElementById("scoderes"), statecodes);
 	</script>
-	<!-- <script>
-		var tzones = document.getElementById('tzones')
-		var gzones = document.getElementById('gzones')
-		var rzones = document.getElementById('rzones')
-		var ozones = document.getElementById('ozones')
-		fetch("https://covid-19-india-data-by-zt.p.rapidapi.com/GetIndiaNumberOfDistrictsPerZone", {
-			"method": "GET",
-			"headers": {
-				"x-rapidapi-host": "covid-19-india-data-by-zt.p.rapidapi.com",
-				"x-rapidapi-key": "4c265e0db5msh2d261aab83a8dfbp1d9134jsnfb7360ed7019"
-			}
-		})
-		.then(function(response) {
-	    	return response.json();
-	  	})
-		.then(function(response){
-			tzones.innerHTML = `<span style="color: red">${response.data['Total']}</span>`
-    		gzones.innerHTML = `<span style="color: red">${response.data['Green']}</span>`
-    		rzones.innerHTML = `<span style="color: red">${response.data['Red']}</span>`
-    		ozones.innerHTML = `<span style="color: red">${response.data['Orange']}</span>`
-		})
-		
-	</script> -->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

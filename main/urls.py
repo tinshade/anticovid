@@ -5,6 +5,7 @@ urlpatterns = [
     path('home', views.home, name="homepage"),
     path('facts', views.facts, name="facts"),
     path('news', views.news, name="news"),
+    path('getnews', views.getnews, name="getnews"),
     path('feedbacks', views.feedbacks, name="feedbacks"),
     path('askbot', views.askbot, name="askbot"),
     #path('askbot', include('talker.urls'), name="askbot"),
